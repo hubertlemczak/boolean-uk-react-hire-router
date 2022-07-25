@@ -1,19 +1,19 @@
-import { useState } from "react"
-import "./styles.css"
+import { Route, Routes } from 'react-router';
+import Container from './components/Container/Container';
+import NavBar from './components/NavBar/NavBar';
+import Dashboard from './pages/Dashboard';
+import PersonProfile from './pages/PersonProfile';
+import './styles.css';
 
 export default function App() {
-  const [hiredPeople, setHiredPeople] = useState([])
-
   return (
-    <>
-      <header>
-        <h1>Hire Your Team</h1>
-        <nav>
-          <ul>
-            <li>Dashboard</li>
-          </ul>
-        </nav>
-      </header>
-    </>
-  )
+    <Container>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/view/:id" element={<PersonProfile />} />
+        <Route path="/edit/:id" element={<PersonProfile />} />
+      </Routes>
+    </Container>
+  );
 }

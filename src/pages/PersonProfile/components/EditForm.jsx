@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useHiredPeople } from '../../../context/HiredPeopleContext';
 
-function HireForm({ person }) {
+function EditForm({ person }) {
   const [wage, setWage] = useState(0);
   const { setHiredPeople } = useHiredPeople();
   const navigate = useNavigate();
@@ -10,10 +10,11 @@ function HireForm({ person }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    setHiredPeople((currentHiredPeople) => [
-      ...currentHiredPeople,
-      { ...person, wage: wage },
-    ]);
+    setHiredPeople((currentHiredPeople) =>
+      currentHiredPeople.map((p) =>
+        p.id === person.id ? { ...person, wage: wage } : p
+      )
+    );
     navigate('/');
   }
 
@@ -27,9 +28,9 @@ function HireForm({ person }) {
         onChange={(e) => setWage(e.target.value)}
         value={wage}
       />
-      <button type="submit">Hire</button>
+      <button type="submit">Edit</button>
     </form>
   );
 }
 
-export default HireForm;
+export default EditForm;

@@ -1,10 +1,22 @@
-import { useState } from "react"
-import PeopleList from "./components/PeopleList"
-
+import { useEffect, useState } from 'react';
+import { useHiredPeople } from '../../context/HiredPeopleContext';
+import PeopleList from './components/PeopleList';
+let i = 0;
 function Dashboard(props) {
-  const { hiredPeople } = props
+  const { hiredPeople } = useHiredPeople();
+  const [people, setPeople] = useState([]);
 
-  const [people, setPeople] = useState([])
+  useEffect(() => {
+    fetch('https://randomuser.me/api/?results=50')
+      .then((res) => res.json())
+      .then((data) =>
+        setPeople(
+          data.results.map((person) => {
+            return { ...person, id: i++ };
+          })
+        )
+      );
+  }, []);
 
   return (
     <main className="dashboard-layout">
@@ -17,7 +29,7 @@ function Dashboard(props) {
         <PeopleList people={hiredPeople} />
       </section>
     </main>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
