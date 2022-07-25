@@ -7,7 +7,7 @@ function PeopleListItem({ person }) {
       </h3>
       {person.wage == null && (
         <button>
-          <Link to={`/view/${person.id}`} state={person}>
+          <Link to={`/view/${person.id}`} state={{ person, mode: 'view' }}>
             Hire
           </Link>
         </button>
@@ -16,7 +16,7 @@ function PeopleListItem({ person }) {
         <>
           <p>Wage: £{person.wage}</p>
           <button>
-            <Link to={`/edit/${person.id}`} state={person}>
+            <Link to={`/edit/${person.id}`} state={{ person, mode: 'edit' }}>
               Edit
             </Link>
           </button>

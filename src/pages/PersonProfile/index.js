@@ -5,12 +5,11 @@ import EditForm from './components/EditForm';
 
 function PersonProfile() {
   const [person, setPerson] = useState(null);
-  const { state, pathname } = useLocation();
-  console.log('pathname', pathname);
+  const { state } = useLocation();
 
   useEffect(() => {
-    setPerson(state);
-  }, [state]);
+    setPerson(state.person);
+  }, [state.person]);
 
   if (!person) return <p>Loading...</p>;
 
@@ -19,7 +18,7 @@ function PersonProfile() {
       <h2>
         {person.name.first} {person.name.last}
       </h2>
-      {pathname.includes('/view/') ? (
+      {state.mode === 'view' ? (
         <HireForm person={person} />
       ) : (
         <EditForm person={person} />
